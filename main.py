@@ -50,7 +50,7 @@ def admin_only(f):
 
 # CONFIGURE TABLES
 class BlogPost(db.Model):
-    __tablename__ = "blog_posts"
+    __tablename__ = 'blog_posts'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
@@ -71,7 +71,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(250), unique=True, nullable=False)
     password = db.Column(db.String(250), nullable=False)
 
-    posts = relationship("BlogPost", back_populates='author')
+    posts = relationship('BlogPost', back_populates='author')
 
     comments = relationship('Comment', back_populates='comment_author')
 
@@ -84,11 +84,11 @@ class Comment(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     comment_author = relationship('User', back_populates='comments')
 
-    post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
+    post_id = db.Column(db.Integer, db.ForeignKey('blog_posts.id'))
     parent_post = relationship('BlogPost', back_populates='comments')
 
 
-# db.create_all()
+db.create_all()
 
 
 @app.route('/')
